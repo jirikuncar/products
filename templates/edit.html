@@ -1,0 +1,18 @@
+{%- extends "page.html" -%}
+{% from "_macros.html" import render_field %}
+
+{% block body %}
+<div class="container">
+  <div class="col-md-12">
+    <h1>Edit Product</h1>
+
+    <form method="POST" action="{{ url_for('edit', product_id=request.view_args['product_id']) }}">
+      {{ form.hidden_tag() }}
+      {% for field in form %}
+        {{ render_field(field) }}
+      {% endfor %}
+      <input type="submit" value="Edit">
+    </form>
+  </div>
+</div>
+{% endblock body %}

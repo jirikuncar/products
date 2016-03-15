@@ -1,0 +1,42 @@
+{%- extends "page.html" -%}
+
+{% block body %}
+<div class="container">
+  <div class="col-sm-3 col-md-2 sidebar">
+    <ul class="nav nav-sidebar">
+      {% for category in categories recursive %}
+        <li>
+          {{ category.name }}
+          {% if category.children %}
+          <ul>
+            {{ loop(category.children) }}
+          </ul>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="col-sm-9 col-md-10">
+    <h1>Products</h1>
+    <a href="{{ url_for('add') }}">New product</a>
+
+    <hr/>
+
+    <ul>
+      {% for product in products %}
+      <li>
+        <a href="{{ url_for('edit', product_id=product.id) }}">
+          {{ product.name }}
+          <small>{{ product.ean }}</small>
+        </a>
+        <i class="pull-right">
+          <a href="{{ url_for('delete', product_id=product.id) }}">
+            remove
+          </a>
+        </i>
+        <i class="pull-right">$ {{ product.price }}</i></li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock body %}
